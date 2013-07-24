@@ -13,6 +13,9 @@ SSHCOMMAND="screen -dR"
 echo "forward"
 adb -s $ADBDEVICE forward tcp:2222 tcp:2223
 
+echo "mkfifo"
+adb -s $ADBDEVICE shell "mkfifo $ANDROIDFIFOFILE"
+
 echo "nc"
 adb -s $ADBDEVICE shell "nc -l 2223 < $ANDROIDFIFOFILE | nc $SSHSERVER $SSHPORT > $ANDROIDFIFOFILE" &
 
